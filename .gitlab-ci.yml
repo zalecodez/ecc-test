@@ -23,3 +23,13 @@ pack:
   artifacts:
     paths:
     - ./*.tgz
+
+production:
+    type: deploy
+    script:
+        - npm install
+        - npm start
+        - gem install dpl
+        - dpl --provider=heroku --app=ecc-test --api-key=8cdde59c-f589-4aca-b5ab-f98dcc733476
+    only:
+        - master
