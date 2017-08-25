@@ -9,6 +9,24 @@ cache:
   paths:
   - node_modules/
 
+#before_script:
+#    - npm install
+#    - npm run deploy
+
+#stage_deploy:
+#    artifacts:
+#        paths:
+#          - build/
+#    only:
+#        - dev
+#    script:
+#        - ssh-add <(echo "$STAGING_PRIVATE_KEY")
+#        - ssh -p22 server_user@server_host "mkdir htdocs/wp-content/themes/_tmp"
+#        - scp -P22 -r build/* server_user@server_host:htdocs/wp-content/themes/_tmp
+#        - ssh -p22 server_user@server_host "mv htdocs/wp-content/themes/live htdocs/wp-content/themes/_old && mv htdocs/wp-content/themes/_tmp htdocs/wp-content/themes/live"
+#        - ssh -p22 server_user@server_host "rm -rf htdocs/wp-content/themes/_old"
+
+
 test:
   stage: test
   script:
