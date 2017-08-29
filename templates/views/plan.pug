@@ -1,0 +1,23 @@
+extends ../layouts/default
+block content
+    .container
+        if(data.plan)
+            h1=data.plan.title
+            div
+                img(src=data.plan.headImage.url height=300 width=300)
+            h3 Materials:
+            p #{data.plan.materials}
+            
+            h3 Instructions:
+            p !{data.plan.content}
+            br
+            if(data.plan.tags.length > 0)
+                p
+                    |Tags:
+                    each tag in data.plan.tags
+                        |#{" "+tag.name}
+        
+                    
+        else
+            h2 Error. Plan doesn't exist
+

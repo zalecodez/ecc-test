@@ -9,6 +9,19 @@ exports = module.exports = function (req, res) {
 	// item in the header navigation.
 	locals.section = 'home';
 
+        locals.data = {
+            blogList : {}
+        };
+
+        view.on('init', function(next){
+            var q = keystone.list('Post').model.find().limit(3);
+            q.exec(function(err, result){
+                console.log(result);
+                locals.data.blogList = result;
+                next();
+            });
+        });
+
 	// Render the view
 	view.render('index');
 };

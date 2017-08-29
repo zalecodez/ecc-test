@@ -1,0 +1,12 @@
+extends ../layouts/default
+block content
+    .container
+        if(articles != "")
+            h1 Articles
+            ul
+                each article in articles
+                    li
+                        a(href="/articles/"+article.slug) #{article.title}
+        else
+            h2 There are no articles posted yet
+            

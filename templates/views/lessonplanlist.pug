@@ -1,0 +1,12 @@
+extends ../layouts/default
+block content
+    .container
+        if(lessonplans != "")
+            h1 Lesson Plans
+            ul
+                each plan in lessonplans
+                    li
+                        a(href="/lessons/"+plan.slug) #{plan.title}
+        else
+            h2 There are no lesson plans posted yet
+            

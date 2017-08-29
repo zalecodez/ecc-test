@@ -1,0 +1,22 @@
+extends ../layouts/default
+block content
+    .container
+        if(article)
+            h1=article.title
+            div
+                img(src=article.headImage.url height=300 width=300)
+
+            h4 Sources:
+            p #{article.sources}
+            
+            p !{article.content}
+
+            if(article.tags.length > 0)
+                p
+                    |Tags:
+                    each tag in article.tags
+                        |#{" "+tag.name}
+            
+        else
+            h2 Error. Article doesn't exist
+

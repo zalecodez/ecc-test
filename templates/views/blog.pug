@@ -1,0 +1,12 @@
+extends ../layouts/default
+block content
+    .container
+        if(blog != "")
+            h1 Blog
+            ul
+                each post in blog
+                    li
+                        a(href="/blog/"+post.slug) #{post.title}
+        else
+            h2 There are no posts yet
+            
