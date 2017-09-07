@@ -16,7 +16,21 @@ var _ = require('lodash');
 	The included layout depends on the navLinks array to generate
 	the navigation in the header, you may wish to change this array
 	or replace it with your own templates / logic.
-*/
+        */
+
+
+exports.socialMediaHandler = function(req, res, next){
+    var ua = req.headers['user-agent'];
+    
+    if (/^(facebookexternalhit)|(Twitterbot)|(Pinterest)/gi.test(ua)) {
+        console.log(ua,' is a bot');
+        res.render('bot');
+    } else {
+        console.log("socialMediaHandler");
+        next();
+    }
+}
+
 exports.initLocals = function (req, res, next) {
 	res.locals.navLinks = [
 		{ label: 'Home', key: 'home', href: '/' },

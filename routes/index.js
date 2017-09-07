@@ -21,8 +21,10 @@
 var keystone = require('keystone');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
+var paths = require('./paths');
 
 // Common Middleware
+keystone.pre('routes', middleware.socialMediaHandler);
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
 
@@ -35,12 +37,12 @@ var routes = {
 exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
-        app.get('/lessons', routes.views.lessonplans);
-        app.get('/lessons/:plan', routes.views.lesson);
-        app.get('/blog', routes.views.blog);
-        app.get('/blog/:post', routes.views.post);
-        app.get('/articles', routes.views.articles);
-        app.get('/articles/:article', routes.views.article);
+        app.get(paths.LessonPlan, routes.views.lessonplans);
+        app.all(paths.LessonPlan+"/:plan", routes.views.lesson);
+        app.get(paths.Post, routes.views.blog);
+        app.all(paths.Post+'/:post', routes.views.post);
+        app.get(paths.Article, routes.views.articles);
+        app.all(paths.Article+'/:article', routes.views.article);
         app.get('/search', routes.views.search);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:

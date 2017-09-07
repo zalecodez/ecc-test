@@ -15,4 +15,5 @@ Tag.relationship({path: 'articles', ref: 'Article', refPath: 'tags'});
 Tag.relationship({path: 'lessonplans', ref: 'LessonPlan', refPath: 'tags'});
 
 
+
 Tag.register();

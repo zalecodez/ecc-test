@@ -1,4 +1,5 @@
 extends ../layouts/default
+include ../mixins/comments
 block content
     .container
         if(data.post)
@@ -13,6 +14,11 @@ block content
                     |Tags:
                     each tag in data.post.tags
                         |#{" "+tag.name}
+            hr
+            div
+                h3 Comments
+                +comment-form()
+                +comment-thread(data.comments)
         else
             h2 Error. Blog post doesn't exist
 

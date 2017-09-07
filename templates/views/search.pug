@@ -6,12 +6,15 @@ block content
             div.form-group
                 input.form-control(type="text" name="search" placeholder="Search...")
             input(type="submit" value="Search")
-        if(data.searchResults.length > 0)
+        if(data.searchResults)
             div.container
-                h1 Results
-                each result in data.searchResults
-                    ul
-                        li 
-                            a(href="/blog/"+result.slug) #{result.title}
+                h1=Results
+                each key in Object.keys(data.searchResults)
+                    hr
+                    h2=key
+                    each result in data.searchResults[key]
+                        ul
+                            li 
+                                a(href=data.paths[key]+"/"+result.slug) #{result.title}
         else
             h2 No results. Try another search...

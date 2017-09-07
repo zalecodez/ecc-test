@@ -21,8 +21,15 @@ User.schema.virtual('canAccessKeystone').get(function () {
 });
 
 
+User.schema.methods.wasActive = function () {
+    this.lastActiveOn = new Date();
+    return this;
+};
+
+
+User.relationship({path: 'comments', ref:'Comment', refPath:'user'});
+User.defaultColumns = 'name, email, isAdmin';
 /**
  * Registration
  */
-User.defaultColumns = 'name, email, isAdmin';
 User.register();

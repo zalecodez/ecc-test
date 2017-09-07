@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var FuzzySearch = require('fuzzy-search');
 var locus = require('locus');
+var paths = require('../paths');
 
 var fuzzy = function(searchQuery, next, callback){
     var q = keystone.list('Post').model.find().populate('tags', 'name');
@@ -11,17 +12,17 @@ var fuzzy = function(searchQuery, next, callback){
         searchResults = searcher.search(searchQuery);
         console.log("SEARCH RESULTS: "+searchResults);
         callback(searchResults);
-        next(err);
     });
 }
 
-var mongosearch = function(searchQuery, next, callback){
-    var q = keystone.list('Post').model.find({$text: {$search: searchQuery}}); 
+var mongosearch = function(lists, searchQuery, next, callback){
+    var key = Object.keys(lists[0])[0];
+    var current =  lists[0][key];
+    var q = current.model.find(current.addSearchToQuery(searchQuery)); 
 
-    q.exec(function(err,result){
-        searchResults = result;
-        callback(searchResults);
-        next(err);
+    var rem = lists.slice(1);
+    q.exec(function(err, result){
+        callback(err, next, rem, key, result);
     });
 };
 exports = module.exports = function(req, res){
@@ -30,41 +31,42 @@ exports = module.exports = function(req, res){
     var searchResults;
 
     locals.data = {
-        searchResults: {}
+        paths: paths,
+        searchResults: []
     };
     var searchQuery = req.query.search;
 
     if(searchQuery){
         view.on('init', function(next){
-//
-//            //fuzzy search
-//            fuzzy(searchQuery, next, function(searchResults){
-//                if(searchResults){
-//                    locals.data.searchResults = searchResults;
-//                }
-//            });
-//
-//            //mongo index search
-//            mongosearch(searchQuery, next,function(searchResults){
-//                if(searchResults){
-//                    locals.data.searchResults = searchResults;
-//                }
-//            });
-            var post = keystone.list('Post');
-            var coll = post.model.collection;
+            var potentials = keystone.lists;
+            var lists = [];
+            var count = 0;
+            var last = false;
+            for(var l in potentials){
+                if(potentials[l].options.inherits == keystone.lists.Content){
+                    lists[count] = {}
+                    lists[count++][l]=potentials[l];
+                }
+            }
+            //now we have lists, the list of keystone lists to display
 
-            coll.getIndexes(function(err, indexes){
-                eval(locus);
-                if(err) throw err;
-var data = keystone.list('Post').buildSearchTextIndex();
-            eval(locus);
-            data = keystone.list('Post').ensureTextIndex();
-            data = keystone.list('Post').declaresTextIndex();
-            console.log(data);
 
+            //mongo index search
+            //search on the first list, on callback search on remainder
+            mongosearch(lists, searchQuery, next, 
+            function lambda(error, next, lists, key, searchResults){
+                if(searchResults.length > 0){
+                    locals.data.searchResults[key] = searchResults;
+                }
+
+                if(lists.length == 0){
+                    next(error);
+                }
+                else{
+                    mongosearch(lists, searchQuery, next, lambda); 
+                }
             });
         });
-
     }
     view.render('search');
 };
