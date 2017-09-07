@@ -29,7 +29,7 @@ exports.socialMediaHandler = function(req, res, next){
             url: req.protocol + "://" + req.get('host') + req.originalUrl,
             title: 'TestSwag',
             descriptionText: 'This is moar test',
-            imageUrl: 'https://ecc-test.herokuapp.com/favicon.ico',
+            imageUrl: req.protocol + '://'+req.get('host')+'/'+'favicon.ico',
         });
     } else {
         console.log("socialMediaHandler");
