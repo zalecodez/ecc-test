@@ -26,7 +26,7 @@ exports.socialMediaHandler = function(req, res, next){
         console.log(ua,' is a bot');
         res.render('bot', {
             img: '/favicon.ico',
-            url: req.url,
+            url: req.protocol + "://" + req.get('host') + req.originalUrl,
             title: 'TestSwag',
             descriptionText: 'This is moar test',
             imageUrl: 'https://ecc-test.herokuapp.com/favicon.ico',
