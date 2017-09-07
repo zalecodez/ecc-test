@@ -24,7 +24,13 @@ exports.socialMediaHandler = function(req, res, next){
     
     if (/^(facebookexternalhit)|(Twitterbot)|(Pinterest)/gi.test(ua)) {
         console.log(ua,' is a bot');
-        res.render('bot');
+        res.render('bot', {
+            img: '/favicon.ico',
+            url: req.url,
+            title: 'TestSwag',
+            descriptionText: 'This is moar test',
+            imageUrl: 'https://ecc-test.herokuapp.com/favicon.ico',
+        });
     } else {
         console.log("socialMediaHandler");
         next();
