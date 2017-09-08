@@ -4,6 +4,8 @@ block content
     .container
         if(data.post)
             h1=data.post.title
+            .pull-left
+                a(href="https://www.facebook.com/sharer/sharer.php?u="+social.url) Facebook
             div
                 img(src=data.post.headImage.url height=300 width=300)
             
