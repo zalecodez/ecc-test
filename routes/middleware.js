@@ -21,6 +21,7 @@ var _ = require('lodash');
 
 exports.socialMediaHandler = function(req, res, next){
     var ua = req.headers['user-agent'];
+    console.log("UAUAUA: "+ua);
     var locals =  res.locals;
 
     var host = req.protocol + "://" + req.get('host')
