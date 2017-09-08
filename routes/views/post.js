@@ -19,6 +19,7 @@ exports = module.exports = function(req, res){
     }
    
     view.on('init', function(next){
+        var host = req.protocol + "://" + req.get('host')
         var q = keystone.list('Post').model.findOne({
             slug: locals.filters.post
         }).populate('tags');
