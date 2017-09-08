@@ -1,11 +1,17 @@
 extends ../layouts/default
 include ../mixins/comments
+include ../mixins/socials
 block content
     .container
         if(data.post)
             h1=data.post.title
-            .pull-left
-                a(href="https://www.facebook.com/sharer/sharer.php?u="+social.url, target="_blank") Facebook
+            .pull-right
+                //a(href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(social.url), target="_blank") Facebook
+                +fbLink
+                +twitterLink
+                +pinterestLink
+                +googlePlusLink
+
             div
                 img(src=data.post.headImage.url height=300 width=300)
             
