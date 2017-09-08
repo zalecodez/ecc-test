@@ -31,7 +31,7 @@ exports = module.exports = function(req, res){
                 url: host + req.originalUrl,
                 title: result.title,
                 //descriptionText: 'Parents and Teachers! Get involved with the best practices for teaching and raising children between the ages of 0 and 5.',
-                descriptionText: result.contentString.substring(0,50)+"...";
+                descriptionText: result.contentString.substring(0,50)+"...",
                 imageUrl: result.headImage.url,
             };
 
