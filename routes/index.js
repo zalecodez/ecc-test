@@ -24,8 +24,8 @@ var importRoutes = keystone.importer(__dirname);
 var paths = require('./paths');
 
 // Common Middleware
-keystone.pre('routes', middleware.socialMediaHandler);
 keystone.pre('routes', middleware.initLocals);
+keystone.pre('render', middleware.socialMediaHandler);
 keystone.pre('render', middleware.flashMessages);
 
 // Import Route Controllers

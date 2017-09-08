@@ -21,16 +21,24 @@ var _ = require('lodash');
 
 exports.socialMediaHandler = function(req, res, next){
     var ua = req.headers['user-agent'];
-    
+    var locals =  res.locals;
+
+    var host = req.protocol + "://" + req.get('host')
+
+    var defaultParams = {
+        img: '/favicon.ico',
+        url: host + req.originalUrl,
+        title: 'Early Childhood Care and Education',
+        descriptionText: 'Parents and Teachers! Get involved with the best practices for teaching and raising children between the ages of 0 and 5.',
+        imageUrl: host+'/'+'favicon.ico',
+    };
+
     if (/^(facebookexternalhit)|(Twitterbot)|(Pinterest)/gi.test(ua)) {
         console.log(ua,' is a bot');
-        res.render('bot', {
-            img: '/favicon.ico',
-            url: req.protocol + "://" + req.get('host') + req.originalUrl,
-            title: 'TestSwag',
-            descriptionText: 'This is moar test',
-            imageUrl: req.protocol + '://'+req.get('host')+'/'+'favicon.ico',
-        });
+        if(!locals.social){
+            locals.social = defaultParams;
+        }
+        res.render('bot', locals.social);
     } else {
         console.log("socialMediaHandler");
         next();
