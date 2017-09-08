@@ -6,8 +6,8 @@ mixin twitterLink
 
 
 mixin pinterestLink
-    a(href="http://pinterest.com/pin/create/button/?url="+encodeURIComponent(social.url)+"&media="+encodeURIComponent(social.imgUrl)+"&description="+encodeURIComponent(social.descriptionText), target="_blank") Pinterest
+    a(href="http://pinterest.com/pin/create/button/?url="+encodeURIComponent(social.url)+"&media="+encodeURIComponent(social.imageUrl)+"&description="+encodeURIComponent(social.descriptionText), target="_blank") Pinterest
 
 
 mixin googlePlusLink
-    a(href="https://plus.google.com/share?url="+encodeURIComponent(url), target="_blank") Google+
+    a(href="https://plus.google.com/share?url="+encodeURIComponent(social.url), target="_blank") Google+
