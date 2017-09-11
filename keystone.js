@@ -23,7 +23,7 @@ keystone.init({
 	'session': true,
 	'auth': true,
 	'user model': 'User',
-
+/*
 	'wysiwyg additional options': {
 mode : "textareas",
     theme : "advanced",
@@ -43,7 +43,9 @@ mode : "textareas",
     theme_advanced_resizing : true,	
 	
 	},
-
+*/
+	'wysiwyg images': true,
+	'wysiwyg cloudinary images':true,
 	'wysiwyg override toolbar': false,
 		'wysiwyg menubar': true,
 		'wysiwyg skin': 'lightgray',
