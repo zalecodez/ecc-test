@@ -44,7 +44,7 @@ mode : "textareas",
 	
 	},
 */
-	'wysiwyg images': true,
+	//'wysiwyg images': true,
 	'wysiwyg cloudinary images':true,
 
 //	'wysiwyg override toolbar': false,
