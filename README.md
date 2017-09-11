@@ -3,7 +3,7 @@ ECCE Project Test App
 
 Click [Here](https://ecc-test.herokuapp.com/) to view the app on the test server.
 
-###### Disclaimer: No attention was paid to design/layout/style. The focus has been backend functionality.
+###### No attention was paid to design/layout/style. The focus has been backend functionality.
 
 Features (partially) implemented so far:
 ----------------------------
