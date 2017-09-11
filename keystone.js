@@ -44,20 +44,21 @@ mode : "textareas",
 	
 	},
 */
-	//'wysiwyg images': true,
-	//'wysiwyg cloudinary images':true,
-	'wysiwyg override toolbar': false,
-		'wysiwyg menubar': true,
-		'wysiwyg skin': 'lightgray',
-		'wysiwyg additional buttons': 'searchreplace visualchars,'
-			+ ' charmap ltr rtl pagebreak paste, forecolor backcolor,'
-			+' emoticons media, preview print ',
-		'wysiwyg additional plugins': 'example, table, advlist, anchor,'
-			+ ' autolink, autosave, bbcode, charmap, contextmenu, '
-			+ ' directionality, emoticons, fullpage, hr, media, pagebreak,'
-			+ ' paste, preview, print, searchreplace, textcolor,'
-			+ ' visualblocks, visualchars, wordcount',
+	'wysiwyg images': true,
+	'wysiwyg cloudinary images':true,
 
+//	'wysiwyg override toolbar': false,
+//		'wysiwyg menubar': true,
+//		'wysiwyg skin': 'lightgray',
+//		'wysiwyg additional buttons': 'searchreplace visualchars,'
+//			+ ' charmap ltr rtl pagebreak paste, forecolor backcolor,'
+//			+' emoticons media, preview print ',
+//		'wysiwyg additional plugins': 'example, table, advlist, anchor,'
+//			+ ' autolink, autosave, bbcode, charmap, contextmenu, '
+//			+ ' directionality, emoticons, fullpage, hr, media, pagebreak,'
+//			+ ' paste, preview, print, searchreplace, textcolor,'
+//			+ ' visualblocks, visualchars, wordcount',
+//
 });
 
 // Load your project's Models
