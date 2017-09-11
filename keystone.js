@@ -45,8 +45,13 @@ mode : "textareas",
 	},
 */
 	'wysiwyg images': true,
-	//'wysiwyg cloudinary images':true,
 
+	'wysiwyg additional options': {
+selector: "textarea",  // change this value according to your HTML
+  plugins: "image",
+  menubar: "insert",
+  toolbar: "image",
+},
 //	'wysiwyg override toolbar': false,
 //		'wysiwyg menubar': true,
 //		'wysiwyg skin': 'lightgray',
