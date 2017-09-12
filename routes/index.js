@@ -24,7 +24,9 @@ var importRoutes = keystone.importer(__dirname);
 var paths = require('./paths');
 
 // Common Middleware
+keystone.pre('routes', middleware.checkIP);
 keystone.pre('routes', middleware.initLocals);
+keystone.pre('routes', middleware.spamFilter);
 keystone.pre('render', middleware.socialMediaHandler);
 keystone.pre('render', middleware.flashMessages);
 

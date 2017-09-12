@@ -16,7 +16,6 @@ exports = module.exports = function (req, res) {
         view.on('init', function(next){
             var q = keystone.list('Post').model.find().limit(3);
             q.exec(function(err, result){
-                console.log(result);
                 locals.data.blogList = result;
                 next();
             });

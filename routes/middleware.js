@@ -8,6 +8,8 @@
  * modules in your project's /lib directory.
  */
 var _ = require('lodash');
+var locus = require('locus');
+var request = require('request');
 
 
 /**
@@ -21,7 +23,6 @@ var _ = require('lodash');
 
 exports.socialMediaHandler = function(req, res, next){
     var ua = req.headers['user-agent'];
-    console.log("UAUAUA: "+ua);
     var locals =  res.locals;
 
     var host = req.protocol + "://" + req.get('host')
@@ -35,16 +36,80 @@ exports.socialMediaHandler = function(req, res, next){
     };
 
     if (/^(facebookexternalhit)|(Twitterbot)|(Pinterest)/gi.test(ua)) {
-        console.log(ua,' is a bot');
         if(!locals.social){
             locals.social = defaultParams;
         }
         res.render('bot', locals.social);
     } else {
-        console.log("socialMediaHandler");
         next();
     }
 }
+
+exports.checkIP = function(req, res, next){
+    var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+
+    var q = keystone.list('BlockedIP').model.findOne({
+        address: ip
+    });
+
+    q.exec(function(err, result){
+        if(result){
+            console.log("blocked IP tryna be up in dis");
+            next(new Error('Blocked'));
+        }
+        else{
+            next(err);
+        }
+    });
+}
+
+exports.spamFilter = function(req, res, next){
+
+    if(req.body.action && req.body.action === "comment.create"){
+        console.log(req);
+
+
+        request.post('https://www.google.com/recaptcha/api/siteverify',
+            { json: { 
+                secret: '6LdibDAUAAAAAM2KAP0_UsMnYlHF3L4fP5Rw6RyR',
+                response: req.body['g-recaptcha-response'],
+                //remoteip:
+            } },
+            function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body)
+                }
+            }
+        );
+        eval(locus);
+        if((req.body.contact_me && Boolean(req.body.contact_me) === true)
+            || (req.body.rating)){
+            console.log("spamfilter bot detected");
+            
+            var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+            console.log("ip is"+ ip);
+            var block = new (keystone.list('BlockedIP')).model({
+                address: ip
+            });
+
+            block.save(function(err, block){
+                console.log(ip+"block added");
+                if(err){ 
+                    return console.error(err);
+                }
+            });
+            return res.redirect('/');
+        }
+        else{
+            next();
+        }
+    }
+    else{
+        next();
+    }
+}
+
+
 
 exports.initLocals = function (req, res, next) {
 	res.locals.navLinks = [
