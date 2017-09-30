@@ -66,10 +66,6 @@ exports.checkIP = function(req, res, next){
 exports.spamFilter = function(req, res, next){
 
     if(req.body.action && req.body.action === "comment.create"){
-        console.log(req);
-        eval(locus);
-
-
         request(
             {
                 url: 'https://www.google.com/recaptcha/api/siteverify',
@@ -81,11 +77,35 @@ exports.spamFilter = function(req, res, next){
             },
             function (error, response, body) {
                 if (!error && response.statusCode == 200) {
-                    console.log(body)
+                    console.log("RECAPTCHA RECAPTCHA");
+                    body = JSON.parse(body);
+                    if(body.success == true){
+                        next();
+                    }
+                    else{
+                          console.log("spamfilter bot detected");
+                
+                          var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+                          console.log("ip is"+ ip);
+                          var block = new (keystone.list('BlockedIP')).model({
+                              address: ip
+                          });
+
+                          block.save(function(err, block){
+                              console.log(ip+"block added");
+                              if(err){ 
+                                  return console.error(err);
+                              }
+                          });
+                          return res.redirect('/');
+
+                    }
                 }
             }
         );
-        eval(locus);
+        /*
+         * HONEYPOT TRAPS:
+         * DEEMED NOT NECESSARY BECAUSE OF RECAPTCHA
         if((req.body.contact_me && Boolean(req.body.contact_me) === true)
             || (req.body.rating)){
             console.log("spamfilter bot detected");
@@ -107,6 +127,7 @@ exports.spamFilter = function(req, res, next){
         else{
             next();
         }
+        */
     }
     else{
         next();

@@ -10,14 +10,16 @@ mixin comment-form(action)
                     img(src='http://placehold.it/80x80', alt='Comment author placeholder', width=80, height=80).img-rounded
             .media-body
 
-                - var t = new Date();
-                input(type="hidden", name="honeypot", value=t)
+                //HONEYPOT TRAPS COMMENTED OUT
+                //RELYING ON INVISIBLE RECAPTCHA
+                //- var t = new Date();
+                //input(type="hidden", name="honeypot", value=t)
                 if !user
                     input#form_email(name='author.name', type='text', placeholder='Enter your name...').form-control
-                    label(for="author.name" style='display:none !important') Name
+                    //label(for="author.name" style='display:none !important') Name
                     input#form_lastname(name='author.email', type='email', placeholder='Enter your email...').form-control
-                input(type="checkbox" name="contact_me" value="Contact me" style="display:none !important" tabindex="-1" autocomplete="off")
-                input(type="text" name="rating" placeholder='Please rate this post...' style="display:none !important" tabindex="-1" autocomplete="off")
+                //input(type="checkbox" name="contact_me" value="Contact me" style="display:none !important" tabindex="-1" autocomplete="off")
+                //input(type="text" name="rating" placeholder='Please rate this post...' style="display:none !important" tabindex="-1" autocomplete="off")
 
                 textarea(name='content', placeholder='Leave a comment...', style="margin-bottom: 10px; min-height: 80px; resize: vertical;").form-control
                 //if user
