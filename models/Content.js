@@ -1,6 +1,13 @@
 var keystone = require('keystone');
 var striptags = require('striptags');
 var Types = keystone.Field.Types;
+var vidStorage = new keystone.Storage({
+    adapter: keystone.Storage.Adapters.FS,
+    fs: {
+        path: 'public/videos/',
+        publicPath: '/public/videos/',
+    }
+});
 
 var Content = new keystone.List('Content', {
     map: {name:'title'},
@@ -13,6 +20,7 @@ Content.add({
     title: {type: String, required: true, index:true},
     publishedDate: {type: Date, default: Date.now},
     headImage: {type: Types.CloudinaryImage},
+    video: {type: Types.File, storage: vidStorage},
     content: {type: Types.Html, wysiwyg: true, height:400},
     contentString:{type: String, hidden:true,  watch: true, value: function(){
         return striptags(this.content);

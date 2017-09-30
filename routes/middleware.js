@@ -67,14 +67,18 @@ exports.spamFilter = function(req, res, next){
 
     if(req.body.action && req.body.action === "comment.create"){
         console.log(req);
+        eval(locus);
 
 
-        request.post('https://www.google.com/recaptcha/api/siteverify',
-            { json: { 
-                secret: '6LdibDAUAAAAAM2KAP0_UsMnYlHF3L4fP5Rw6RyR',
-                response: req.body['g-recaptcha-response'],
-                //remoteip:
-            } },
+        request(
+            {
+                url: 'https://www.google.com/recaptcha/api/siteverify',
+                method: 'POST',
+                form: {
+                    secret: '6LdibDAUAAAAAM2KAP0_UsMnYlHF3L4fP5Rw6RyR',
+                    response: req.body['g-recaptcha-response'],
+                },
+            },
             function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body)
