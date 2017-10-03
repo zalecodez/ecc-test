@@ -16,9 +16,9 @@ Comment.add({
     },
     user: {type: Types.Relationship, ref:'User', index:true},
     post: {type: Types.Relationship, ref: 'Post', index:true, initial:true, required:true},
-    publishedDate: {type: Date, default: Date.now, noedit: true, index:true},
+    submittedOn: {type: Date, default: Date.now, noedit: true, index:true},
     content: {type: String, height:400, required: true, initial: false},
-    state:{type: Types.Select, options: ['published', 'draft', 'archived'], default:'published', index:true},
+    state:{type: Types.Select, options: ['published', 'submitted', 'flagged'], default:'submitted', index:true},
     contentString:{type: String, hidden:true,  watch: true, value: function(){
         return striptags(this.content);
     }},
@@ -29,7 +29,7 @@ Comment.add({
 
 Comment.schema.pre('save', function (next) {
     this.wasNew = this.isNew;
-    if (!this.isModified('publishedOn') && this.isModified('commentState') && this.commentState === 'published') {
+    if (!this.isModified('submittedOn') && this.isModified('commentState') && this.commentState === 'published') {
         this.publishedOn = new Date();
     }
     next();
