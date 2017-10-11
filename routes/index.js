@@ -32,22 +32,32 @@ keystone.pre('render', middleware.flashMessages);
 
 // Import Route Controllers
 var routes = {
-	views: importRoutes('./views'),
+    views: importRoutes('./views'),
+    api: importRoutes('./api'),
 };
 
 // Setup Route Bindings
 exports = module.exports = function (app) {
-	// Views
-	app.get('/', routes.views.index);
-        app.get(paths.LessonPlan, routes.views.lessonplans);
-        app.all(paths.LessonPlan+"/:plan", routes.views.lesson);
-        app.get(paths.Post, routes.views.blog);
-        app.all(paths.Post+'/:post', routes.views.post);
-        app.get(paths.Article, routes.views.articles);
-        app.all(paths.Article+'/:article', routes.views.article);
-        app.get('/search', routes.views.search);
+    // Views
+    app.get('/', routes.views.index);
+    app.get(paths.LessonPlan, routes.views.lessonplans);
+    app.all(paths.LessonPlan+"/:plan", routes.views.lesson);
+    app.get(paths.Post, routes.views.blog);
+    app.all(paths.Post+'/:post', routes.views.post);
+    app.get(paths.Article, routes.views.articles);
+    app.all(paths.Article+'/:article', routes.views.article);
+    app.get('/search', routes.views.search);
+    app.all('/fileupload', routes.views.fileupload);
 
-	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-	// app.get('/protected', middleware.requireUser, routes.views.protected);
+    app.get('/api/fileupload/list', keystone.middleware.api, routes.api.fileupload.list);
+    app.get('/api/fileupload/:id', keystone.middleware.api, routes.api.fileupload.get);
+    app.all('/api/fileupload/:id/update', keystone.middleware.api, routes.api.fileupload.update);
+    app.all('/api/fileupload/create', keystone.middleware.api, routes.api.fileupload.create);
+    app.get('/api/fileupload/:id/remove', keystone.middleware.api, routes.api.fileupload.remove);
+
+
+
+    // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
+    // app.get('/protected', middleware.requireUser, routes.views.protected);
 
 };

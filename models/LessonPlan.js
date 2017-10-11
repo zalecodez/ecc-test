@@ -6,6 +6,7 @@ var LessonPlan = new keystone.List('LessonPlan', {
     inherits: Content,
     singular: 'Lesson Plan', 
     plural: 'Lesson Plans',
+    hidden: false,
 });
 
 LessonPlan.add({

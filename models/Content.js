@@ -13,7 +13,8 @@ var Content = new keystone.List('Content', {
     map: {name:'title'},
     autokey: {path:'slug', from:'title', unique:'true'},
     searchFields: 'title contentString tagString',
-    searchUsesTextIndex:true
+    searchUsesTextIndex:true,
+    hidden: true,
 });
 
 Content.add({

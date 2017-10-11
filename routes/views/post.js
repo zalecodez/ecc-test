@@ -51,9 +51,10 @@ exports = module.exports = function(req, res){
             post: locals.data.post.id,
             author: {
                 name: locals.user?locals.user.name.full:"Guest", 
-            email:locals.user?locals.user.email:"guest@ecce.com"
+                email:locals.user?locals.user.email:"guest@ecce.com"
             },
-            user: locals.user?locals.user.id:null
+            user: locals.user?locals.user.id:null,
+            state:locals.user?"published":"submitted",
         });
 
         var updater = newComment.getUpdateHandler(req);
@@ -68,7 +69,12 @@ exports = module.exports = function(req, res){
             if (err) {
                 locals.validationErrors = err.errors;
             } else {
-                req.flash('success', 'Your comment was added.');
+                if(locals.user){
+                    req.flash('success', 'Your comment was added.');
+                }
+                else{
+                    req.flash('success', 'Your comment was submitted for approval.');
+                }
                 return res.redirect('/blog/' + locals.data.post.slug + '#comment-id-' + newComment.id);
             }
             next();
@@ -107,10 +113,11 @@ exports = module.exports = function(req, res){
             }
             comment.state = 'archived';
             comment.save(function (err) {
-                if (err)
-                return res.err(err);
-            req.flash('success', 'Your comment has been deleted.');
-            return res.redirect('/blog/' + locals.data.post.slug);
+                if (err){
+                    return res.err(err);
+                }
+                req.flash('success', 'The comment has been deleted.');
+                return res.redirect('/blog/' + locals.data.post.slug);
             });
         });
     });

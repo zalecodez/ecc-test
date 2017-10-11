@@ -1,0 +1,8 @@
+html
+    head
+        script(src='/js/jquery/jquery-1.11.3.min.js')
+        script(src='js/fileupload.js')
+    body
+        form#uploadForm(action='/fileupload', method='post')
+            input#myUpload(type='file', name="file") 
+            input(type='submit', value='Upload')

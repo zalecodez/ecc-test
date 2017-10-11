@@ -39,7 +39,11 @@ mixin comment-post(comment)
                 .media-body
                     p
                         strong= comment.author.name
-                        if user && (user.id === comment.author.id || user.isAdmin)
+                        //-
+                            //console.log("COMMENT USER STUFF");
+                            //console.log(user.id);
+                            //console.log(comment.user);
+                        if user && (user.isAdmin || (comment.user && (user.id === comment.user.toString())))
                             |  &middot; 
                             a(href='?remove=comment&comment=' + comment.id, title='Delete this comment', rel='tooltip', data-placement='left').comment-delete.js-delete-confirm Delete
                                         

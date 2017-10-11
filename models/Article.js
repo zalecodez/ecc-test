@@ -6,6 +6,7 @@ var Article = new keystone.List('Article', {
     inherits: Content,
     singular: 'Article', 
     plural: 'Articles',
+    hidden: false,
 });
 
 Article.add({
