@@ -1,0 +1,12 @@
+extends ../layouts/default
+block content
+    .container
+        if(printables != "")
+            h1 Printables
+            ul
+                each printable in printables
+                    li
+                        a(href="/printables/"+printable.slug) #{printable.title}
+        else
+            h2 There are no printables posted yet
+            

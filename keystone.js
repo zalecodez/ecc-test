@@ -24,7 +24,7 @@ keystone.init({
     'session': true,
     'auth': true,
     'user model': 'User',
-
+    /*
     'wysiwyg additional options': {
         selector: 'textarea',
         'external_plugins': {
@@ -34,8 +34,7 @@ keystone.init({
         toolbar: 'simplevideo link media image',
 
    },
-
-        /*
+   */
     'wysiwyg cloudinary images': true,
     'wysiwyg additional options': {
         'external_plugins': {'uploadimage': '/js/uploadimage/plugin.min.js'},
@@ -51,7 +50,6 @@ keystone.init({
         + ' directionality, emoticons, fullpage, hr, media, pagebreak,'
         + ' paste, preview, print, searchreplace, textcolor,'
         + ' visualblocks, visualchars, wordcount',
-    */
 });
 
 // Load your project's Models
@@ -74,9 +72,11 @@ keystone.set('routes', require('./routes'));
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
     users: 'users',
-    blog: ['Post', 'LessonPlan', 'Article',],
+    shareableContent: ['Activity', 'ActivityPlan', 'Article', 'ActionShot', 'Printable'],
+    readingContent: ['Event','Announcement','Staff', 'WebPage'],
     comments: [ 'PublishedComment', 'SubmittedComment', 'FlaggedComment', 'ArchivedComment',],
-        
+    uploads: ['Gallery', 'Image', 'Video', 'PDFUpload',],
+    tags: ['ContentTag', 'AgeTag', 'TopicTag','SkillTag','AudienceTag',],
 });
 
 // Start Keystone to connect to your database and initialise the web server

@@ -1,0 +1,12 @@
+extends ../layouts/default
+block content
+    .container
+        if(actionshots != "")
+            h1 Action Shots
+            ul
+                each actionshot in actionshots
+                    li
+                        a(href="/actionshots/"+actionshot.slug) #{actionshot.title}
+        else
+            h2 There are no action shots posted yet
+            

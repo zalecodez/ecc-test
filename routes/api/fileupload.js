@@ -2,7 +2,7 @@ var async = require('async');
 var keystone = require('keystone');
 var exec = require('child_process').exec;
 
-var VideoData = keystone.list('VideoUpload');
+var VideoData = keystone.list('Video');
 
 /**
  * List Videos

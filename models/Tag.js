@@ -3,7 +3,8 @@ var Types = keystone.Field.Types;
 
 var Tag = new keystone.List('Tag', {
     map:{name:'name'},
-    autokey: {path:'key', from:'name', unique:true}
+    autokey: {path:'key', from:'name', unique:true},
+    hidden: true,
 });
 
 Tag.add({
@@ -17,3 +18,5 @@ Tag.relationship({path: 'lessonplans', ref: 'LessonPlan', refPath: 'tags'});
 
 
 Tag.register();
+
+module.exports = Tag;

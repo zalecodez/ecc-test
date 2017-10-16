@@ -1,0 +1,11 @@
+mixin img-shareable-block(type, items)
+    .container
+        if(items != "")
+            h1 type 
+            ul
+                each item in items
+                    li
+                        a(href="/"+item.slug+"/"+item.slug) #{item.title}
+        else
+            h2 There are no articles posted yet
+

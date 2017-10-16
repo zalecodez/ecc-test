@@ -1,0 +1,12 @@
+extends ../layouts/default
+block content
+    .container
+        if(activities != "")
+            h1 Activities
+            ul
+                each activity in activities
+                    li
+                        a(href="/activities/"+activity.slug) #{activity.title}
+        else
+            h2 There are no activities posted yet
+ 

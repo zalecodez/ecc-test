@@ -6,7 +6,7 @@ var Post = new keystone.List('Post', {
     inherits: Content,
     singular: 'Post', 
     plural: 'Posts',
-    hidden: false,
+    hidden: true,
 });
 
 Post.relationship({path:'comments', ref:'Comment', refPath:'post'});

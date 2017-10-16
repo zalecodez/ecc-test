@@ -1,0 +1,12 @@
+extends ../layouts/default
+block content
+    .container
+        if(activityplans != "")
+            h1 Activity Plans
+            ul
+                each plan in activityplans
+                    li
+                        a(href="/activityplans/"+plan.slug) #{plan.title}
+        else
+            h2 There are no activity plans posted yet
+ 

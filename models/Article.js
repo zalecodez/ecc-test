@@ -10,7 +10,7 @@ var Article = new keystone.List('Article', {
 });
 
 Article.add({
-    sources: {type: Types.Text},
+    image: {type: Types.Relationship, ref: 'Image'}
 });
 
 Article.register();

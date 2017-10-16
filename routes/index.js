@@ -40,19 +40,29 @@ var routes = {
 exports = module.exports = function (app) {
     // Views
     app.get('/', routes.views.index);
-    app.get(paths.LessonPlan, routes.views.lessonplans);
-    app.all(paths.LessonPlan+"/:plan", routes.views.lesson);
-    app.get(paths.Post, routes.views.blog);
-    app.all(paths.Post+'/:post', routes.views.post);
-    app.get(paths.Article, routes.views.articles);
-    app.all(paths.Article+'/:article', routes.views.article);
+
+    app.get(paths.Article.many, routes.views.articles);
+    app.all(paths.Article.one, routes.views.article);
+
+    app.get(paths.Activity.many, routes.views.activities);
+    app.all(paths.Activity.one, routes.views.activity);
+
+    app.get(paths.ActivityPlan.many, routes.views.activityplans);
+    app.all(paths.ActivityPlan.one, routes.views.activityplan);
+
+    app.get(paths.ActionShot.many, routes.views.actionshots);
+    app.all(paths.ActionShot.one, routes.views.actionshot);
+
+    app.get(paths.Printable.many, routes.views.printables);
+    app.all(paths.Printable.one, routes.views.printable);
+
+
+    
     app.get('/search', routes.views.search);
-    app.all('/fileupload', routes.views.fileupload);
 
     app.get('/api/fileupload/list', keystone.middleware.api, routes.api.fileupload.list);
     app.get('/api/fileupload/:id', keystone.middleware.api, routes.api.fileupload.get);
-    app.all('/api/fileupload/:id/update', keystone.middleware.api, routes.api.fileupload.update);
-    app.all('/api/fileupload/create', keystone.middleware.api, routes.api.fileupload.create);
+    app.all('/api/fileupload/:id/update', keystone.middleware.api, routes.api.fileupload.update); app.all('/api/fileupload/create', keystone.middleware.api, routes.api.fileupload.create);
     app.get('/api/fileupload/:id/remove', keystone.middleware.api, routes.api.fileupload.remove);
 
 
