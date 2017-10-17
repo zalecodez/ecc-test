@@ -1,0 +1,43 @@
+extends ../layouts/default
+include ../mixins/comments
+include ../mixins/socials
+
+block content
+    .container
+        if(activityplan)
+            h1=activityplan.title
+
+            +shareblock
+
+            div
+                img(src=activityplan.image.url height=300 width=300)
+
+            h2=activityplan.summary
+            p !{activityplan.body}
+
+            hr
+
+            p
+                if(activityplan.topic.length > 0)
+                    |Topics:
+                    each topic in activityplan.topic
+                        |#{" "+topic.name}
+                    |&nbsp;&nbsp;&nbsp;&nbsp;
+
+                if(activityplan.skill.length > 0)
+                    |Skills:
+                    each skill in activityplan.skill
+                        |#{" "+skill.name}
+                    |&nbsp;&nbsp;&nbsp;&nbsp;
+
+                if(activityplan.age.length > 0)
+                    |Age:
+                    each age in activityplan.age
+                        |#{" "+age.name}
+                    |&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+            +comment-block(data.comments)
+
+        else
+            h2 Sorry, that activity plan doesn't exist
+ 

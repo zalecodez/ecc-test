@@ -16,6 +16,7 @@ var Video = new keystone.List('Video',{
 });
 
 Video.add({
+    type: {type: String, hidden: true, value: 'video'},
     video: {type: Types.File, requried: true, index: true, initial: true, storage: vidStorage,},
     url: {type: String, hidden: false, noedit: true, index: true, 
         watch: 'video', value: function(){

@@ -23,10 +23,11 @@ Comment.add({
         email:{type: Types.Email, required: true, initial: false, noedit:true},
     },
     user: {type: Types.Relationship, ref:'User', index:true, noedit:true},
-    post: {type: Types.Relationship, ref: 'Post', index:true, initial:true, required:true, noedit:true},
+    post: {type: Types.Relationship, ref: 'Content', index:true, initial:true, required:true, noedit:true, many: false},
     submittedOn: {type: Date, default: Date.now, noedit: true, index:true},
     content: {type: String, height:400, required: true, initial: false, noedit:true},
-    state:{type: Types.Select, options: ['published', 'submitted', 'flagged', 'archived'], default:'submitted', index:true},
+    innappropriateComment: {type: Boolean},
+    state:{type: Types.Select, options: ['published', 'submitted', 'archived'], default:'submitted', index:true},
     contentString:{type: String, hidden:true,  watch: true, value: function(){
         return striptags(this.content);
     }},
@@ -63,9 +64,6 @@ Comment.schema.post('save', function () {
     //eval(locus);
 
     //if(this.isModified('state')){
-    if(this.state === 'flagged'){
-        mod = 'FlaggedComment';
-    }
     if(this.state === 'archived'){
         mod = 'ArchivedComment';
     }

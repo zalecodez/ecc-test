@@ -10,12 +10,12 @@ listCollectionPaths = {
 
     ActivityPlan: {
         many: '/activityplans',
-        one: '/activityplans/:plan',
+        one: '/activityplans/:activityplan',
     },
 
     ActionShot: {
         many: '/actionshots',
-        one: '/actionshots/:shot',
+        one: '/actionshots/:actionshot',
     },
 
     Printable: {

@@ -11,8 +11,8 @@ var ActionShot = new keystone.List('ActionShot', {
 
 ActionShot.add({
     mediaType: {type: Types.Select, options: ['Gallery', 'PDF', 'Video']},
-    media: {type: Types.Relationship, ref: 'Gallery', many: false, dependsOn: {mediaType: 'Gallery'}},
-    pdf: {type: Types.Relationship, ref: 'PDFUpload', many: false, dependsOn: {mediaType: 'PDF'}},
+    gallery: {type: Types.Relationship, ref: 'Gallery', many: false, dependsOn: {mediaType: 'Gallery'}},
+    PDF: {type: Types.Relationship, ref: 'PDF', many: false, dependsOn: {mediaType: 'PDF'}},
     video: {type: Types.Relationship, ref: 'Video', many: false, dependsOn: {mediaType: 'Video'}},
 });
 

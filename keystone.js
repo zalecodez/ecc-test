@@ -74,8 +74,8 @@ keystone.set('nav', {
     users: 'users',
     shareableContent: ['Activity', 'ActivityPlan', 'Article', 'ActionShot', 'Printable'],
     readingContent: ['Event','Announcement','Staff', 'WebPage'],
-    comments: [ 'PublishedComment', 'SubmittedComment', 'FlaggedComment', 'ArchivedComment',],
-    uploads: ['Gallery', 'Image', 'Video', 'PDFUpload',],
+    comments: [ 'PublishedComment', 'SubmittedComment', 'ArchivedComment',],
+    uploads: ['Gallery', 'Image', 'Video', 'PDF',],
     tags: ['ContentTag', 'AgeTag', 'TopicTag','SkillTag','AudienceTag',],
 });
 

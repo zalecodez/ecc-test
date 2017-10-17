@@ -11,7 +11,7 @@ MediaUpload.add({
     name: {type: String, required: true, initial: true},
     caption:{type: String},
     altText:{type: String},
-    gallery: {type: Types.Relationship, ref: 'Gallery'},
+    gallery: {type: Types.Relationship, ref: 'Gallery', many:true},
 });
 
 MediaUpload.register();

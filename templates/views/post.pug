@@ -6,7 +6,6 @@ block content
         if(data.post)
             h1=data.post.title
             .pull-right
-                //a(href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(social.url), target="_blank") Facebook
                 +fbLink
                 +twitterLink
                 +pinterestLink
@@ -22,11 +21,6 @@ block content
                     |Tags:
                     each tag in data.post.tags
                         |#{" "+tag.name}
-            hr
-            div
-                h3 Comments
-                +comment-form()
-                +comment-thread(data.comments)
         else
             h2 Error. Blog post doesn't exist
 

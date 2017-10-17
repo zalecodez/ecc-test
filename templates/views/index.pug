@@ -11,19 +11,4 @@ block content
             p
                 a(href='/keystone/signin', style='margin-right: 10px').btn.btn-lg.btn-primary Sign in
                 |  to use the Admin UI.
-        hr
-
-        h1 Blog
-        div.row
-            each blog in data.blogList
-                div.col-xs-4
-                    a(href="/blog/"+blog.slug)
-                        h3=blog.title
-                    a(href="/blog/"+blog.slug)
-                        img.img-responsive(src=blog.headImage.url width="200" height="200")
-        hr
-        div.row
-            div.col-md-12
-                h4 
-                    a(href="/blog") See More...
-            
+           

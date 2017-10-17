@@ -4,40 +4,40 @@ include ../mixins/socials
 
 block content
     .container
-        if(article)
-            h1=article.title
-
+        if(activity)
+            h1=activity.title
+            
             +shareblock
 
             div
-                img(src=article.image.url height=300 width=300)
+                img(src=activity.image.url height=300 width=300)
 
-            h2=article.summary
-            p !{article.body}
+            h2=activity.summary
+            p !{activity.body}
 
             hr
 
             p
-                if(article.topic.length > 0)
+                if(activity.topic.length > 0)
                     |Topics:
-                    each topic in article.topic
+                    each topic in activity.topic
                         |#{" "+topic.name}
                     |&nbsp;&nbsp;&nbsp;&nbsp;
 
-                if(article.skill.length > 0)
+                if(activity.skill.length > 0)
                     |Skills:
-                    each skill in article.skill
+                    each skill in activity.skill
                         |#{" "+skill.name}
                     |&nbsp;&nbsp;&nbsp;&nbsp;
 
-                if(article.age.length > 0)
+                if(activity.age.length > 0)
                     |Age:
-                    each age in article.age
+                    each age in activity.age
                         |#{" "+age.name}
                     |&nbsp;&nbsp;&nbsp;&nbsp;
-
+                    
             +comment-block(data.comments)
  
         else
-            h2 Sorry, that article doesn't exist
+            h2 Sorry, that activity doesn't exist
  

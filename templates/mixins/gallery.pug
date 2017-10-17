@@ -1,0 +1,62 @@
+mixin pdf(file)
+    object(type="application/pdf" data=file.url height='500px' width='100%')
+        a(href=file.url) file.name
+
+mixin video(vid)
+    video(controls height='400')
+        source(src=vid.url type=vid.video.mimetype)
+
+mixin image(im)
+    img.img-responsive(height='400' src=im.url)
+
+mixin media(obj)
+    if(Array.isArray(obj))
+        +carousel(obj)
+    else
+        if(obj.__t == 'Image')
+            +image(obj)
+        if(obj.__t == 'Video')
+                +video(obj)
+        if(obj.__t == 'PDF')
+                +pdf(obj)
+
+mixin indicators(id, length)
+    ol.carousel-indicators
+        - var i = 0
+        while i < length
+            li(data-target=id data-slide-to=i.toString())
+            - i++
+
+mixin slides(gallery)
+    - var n = gallery.length
+    if n > 0
+        div.carousel-inner
+            div.item.active
+                +media(gallery[0])
+            - var i = 1
+            while i < n
+                div.item
+                    +media(gallery[i])
+                    - i++
+
+mixin leftcontrol(id)
+    a.left.carousel-control(href=id data-slide="prev")
+        span.glyphicon.glyphicon-chevron-left
+        span.sr-only Previous
+
+mixin rightcontrol(id)
+    a.right.carousel-control(href=id data-slide="next")
+        span.glyphicon.glyphicon-chevron-right
+        span.sr-only Next
+
+mixin carousel(gallery)
+    - var id = "#myCarousel"
+    div#myCarousel.carousel.slide(data-ride="carousel")
+        +indicators(id, gallery.length)
+        +slides(gallery)
+        +rightcontrol(id)
+
+
+
+
+

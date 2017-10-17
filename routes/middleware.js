@@ -19,8 +19,6 @@ var request = require('request');
 	the navigation in the header, you may wish to change this array
 	or replace it with your own templates / logic.
         */
-
-
 exports.socialMediaHandler = function(req, res, next){
     var ua = req.headers['user-agent'];
     var locals =  res.locals;
@@ -35,11 +33,11 @@ exports.socialMediaHandler = function(req, res, next){
         imageUrl: host+'/'+'favicon.ico',
     };
 
+    if(!locals.socials){
+        locals.socials = defaultParams;
+    }
     if (/^(facebookexternalhit)|(Twitterbot)|(Pinterest)/gi.test(ua)) {
-        if(!locals.social){
-            locals.social = defaultParams;
-        }
-        res.render('bot', locals.social);
+        res.render('bot');
     } else {
         next();
     }
@@ -77,22 +75,17 @@ exports.spamFilter = function(req, res, next){
             },
             function (error, response, body) {
                 if (!error && response.statusCode == 200) {
-                    console.log("RECAPTCHA RECAPTCHA");
                     body = JSON.parse(body);
                     if(body.success == true){
                         next();
                     }
                     else{
-                          console.log("spamfilter bot detected");
-                
                           var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-                          console.log("ip is"+ ip);
                           var block = new (keystone.list('BlockedIP')).model({
                               address: ip
                           });
 
                           block.save(function(err, block){
-                              console.log(ip+"block added");
                               if(err){ 
                                   return console.error(err);
                               }
@@ -139,9 +132,11 @@ exports.spamFilter = function(req, res, next){
 exports.initLocals = function (req, res, next) {
 	res.locals.navLinks = [
 		{ label: 'Home', key: 'home', href: '/' },
-                { label: 'Blog', key: 'blog', href:'/blog'},
-                { label: 'Lesson Plans', key: 'lessonplans', href:'/lessons'},
                 { label: 'Articles', key: 'articles', href:'/articles'},
+                { label: 'Activities', key: 'activities', href:'/activities'},
+                { label: 'Activity Plans', key: 'activity-plans', href:'/activityplans'},
+                { label: 'Action Shots', key: 'action-shots', href:'/actionshots'},
+                { label: 'Printables', key: 'printables', href:'/printables'},
                 { label: 'Search', href:'/search'}
 	];
 	res.locals.user = req.user;

@@ -1,13 +1,30 @@
+mixin socialmetas
+        meta(property="og:url"  name="twitter:url" content=socials.url)
+        meta(property="og:title" name="twitter:title" content=socials.title)
+        meta(property="og:description" name="twitter:description" content= socials.descriptionText)
+        meta(property="og:image" content= socials.imageUrl)
+        meta(property="og:type" content="article")
+        meta(name="twitter:card" content="summary")
+
+mixin shareblock
+    div.pull-right
+        +fbLink
+        +twitterLink
+        +pinterestLink
+        +googlePlusLink
+    br
+
+
 mixin fbLink
-    a(href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(social.url), target="_blank") Facebook
+    a(href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(socials.url), target="_blank") Facebook
 
 mixin twitterLink
-    a(href="https://twitter.com/intent/tweet?url="+encodeURIComponent(social.url)+"&text="+encodeURIComponent(social.descriptionText), target="_blank") Twitter
+    a(href="https://twitter.com/intent/tweet?url="+encodeURIComponent(socials.url)+"&text="+encodeURIComponent(socials.descriptionText), target="_blank") Twitter
 
 
 mixin pinterestLink
-    a(href="http://pinterest.com/pin/create/button/?url="+encodeURIComponent(social.url)+"&media="+encodeURIComponent(social.imageUrl)+"&description="+encodeURIComponent(social.descriptionText), target="_blank") Pinterest
+    a(href="http://pinterest.com/pin/create/button/?url="+encodeURIComponent(socials.url)+"&media="+encodeURIComponent(socials.imageUrl)+"&description="+encodeURIComponent(socials.descriptionText), target="_blank") Pinterest
 
 
 mixin googlePlusLink
-    a(href="https://plus.google.com/share?url="+encodeURIComponent(social.url), target="_blank") Google+
+    a(href="https://plus.google.com/share?url="+encodeURIComponent(socials.url), target="_blank") Google+

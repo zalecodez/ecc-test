@@ -17,6 +17,7 @@ var Image = new keystone.List('Image',{
 });
 
 Image.add({
+    type: {type: String, hidden: true, value: 'image'},
     image: {type: Types.File, requried: true, initial: true, index: true, storage: imgStorage,},
     url: {type: String, hidden: false, noedit: true, index: true, 
         watch: 'image', value: function(){

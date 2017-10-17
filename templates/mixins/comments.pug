@@ -1,3 +1,11 @@
+mixin comment-block(comments)
+    hr
+    div
+        h3 Comments
+        +comment-form()
+        +comment-thread(data.comments)
+
+
 mixin comment-form(action)
                    
     form#commentForm(method='post', style="margin-bottom: 40px; margin-top: 40px;")

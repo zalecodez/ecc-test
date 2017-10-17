@@ -1,0 +1,53 @@
+extends ../layouts/default
+include ../mixins/gallery
+include ../mixins/comments
+include ../mixins/socials
+
+block content
+    .container
+        - 
+            var actionshot = data.actionshot;
+            var gallery = data.gallery;
+
+        if(actionshot)
+            h1=actionshot.title
+
+            +shareblock
+
+            if(gallery.length > 0)
+                +carousel(gallery)
+            else
+                if(data.video)
+                    +media(actionshot.video)
+                if(data.pdf)
+                    +media(actionshot.PDF)
+
+            h2=actionshot.summary
+            p !{actionshot.body}
+
+            hr
+
+            p
+                if(actionshot.topic.length > 0)
+                    |Topics:
+                    each topic in actionshot.topic
+                        |#{" "+topic.name}
+                    |&nbsp;&nbsp;&nbsp;&nbsp;
+
+                if(actionshot.skill.length > 0)
+                    |Skills:
+                    each skill in actionshot.skill
+                        |#{" "+skill.name}
+                    |&nbsp;&nbsp;&nbsp;&nbsp;
+
+                if(actionshot.age.length > 0)
+                    |Age:
+                    each age in actionshot.age
+                        |#{" "+age.name}
+                    |&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+            +comment-block(data.comments)
+
+        else
+            h2 Sorry, that actionshot doesn't exist
+ 

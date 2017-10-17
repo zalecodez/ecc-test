@@ -10,16 +10,20 @@ var pdfstorage = new keystone.Storage({
 });
 
 
-var PDFUpload = new keystone.List('PDFUpload',{
+var PDF = new keystone.List('PDF',{
     map: {name: 'name'}
 });
 
-PDFUpload.add({
+PDF.add({
     name: {type: String, required: true, initial: true,},
-    url: {type: String, required: true, initial: true,},
     PDF: {type: Types.File, required: true, initial: true, storage: pdfstorage,},
+    url: {type: String, hidden: false, noedit: true, index: true, 
+        watch: 'PDF', value: function(){
+            return '/uploads/pdf/'+this.PDF.filename;
+        },
+    },
 });
 
-PDFUpload.register();
+PDF.register();
 
-module.exports = PDFUpload;
+module.exports = PDF;
