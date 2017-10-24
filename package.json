@@ -10,6 +10,7 @@
     "keystone": "^4.0.0-beta.5",
     "locus": "^2.0.1",
     "lodash": "^4.13.1",
+    "pdfjs-dist": "^1.9.648",
     "pug": "2.0.0-beta11",
     "request": "^2.81.0",
     "striptags": "^3.1.0",

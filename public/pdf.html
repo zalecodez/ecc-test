@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script src="//npmcdn.com/pdfjs-dist/build/pdf.js"></script>
+        <script>
+            function makeThumb(page) {
+              // draw page to fit into 96x96 canvas
+              var vp = page.getViewport(1);
+              var canvas = document.createElement("canvas");
+              canvas.width = canvas.height = 500;
+              var scale = Math.min(canvas.width / vp.width, canvas.height / vp.height);
+              return page.render({canvasContext: canvas.getContext("2d"), viewport: page.getViewport(scale)}).promise.then(function () {
+                return canvas;
+              });
+            }
+
+            PDFJS.getDocument("/uploads/pdf/GMgLfcV7yk2Xu9oF.pdf").promise.then(function (doc) {
+              var pages = []; while (pages.length < doc.numPages) pages.push(pages.length + 1);
+              return Promise.all(pages.map(function (num) {
+                // create a div for each page and build a small canvas for it
+                var div = document.createElement("div");
+                document.body.appendChild(div);
+                return doc.getPage(num).then(makeThumb)
+                  .then(function (canvas) {
+                    div.appendChild(canvas);
+                });
+              }));
+            }).catch(console.error);
+        </script>
+    </head>
+
+    <body>
+
+    </body>
+
+</html>
+

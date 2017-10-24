@@ -31,9 +31,7 @@ block content
                     |&nbsp;&nbsp;&nbsp;&nbsp;
 
                 if(article.age.length > 0)
-                    |Age:
-                    each age in article.age
-                        |#{" "+age.name}
+                    |Age: #{article.ageGroup}
                     |&nbsp;&nbsp;&nbsp;&nbsp;
 
             +comment-block(data.comments)
