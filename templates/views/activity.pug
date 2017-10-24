@@ -31,9 +31,7 @@ block content
                     |&nbsp;&nbsp;&nbsp;&nbsp;
 
                 if(activity.age.length > 0)
-                    |Age:
-                    each age in activity.age
-                        |#{" "+age.name}
+                    |Age: #{activity.ageGroup}
                     |&nbsp;&nbsp;&nbsp;&nbsp;
                     
             +comment-block(data.comments)

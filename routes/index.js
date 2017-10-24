@@ -56,9 +56,7 @@ exports = module.exports = function (app) {
     app.get(paths.Printable.many, routes.views.printables);
     app.all(paths.Printable.one, routes.views.printable);
 
-
-    
-    app.get('/search', routes.views.search);
+    app.get('/search', middleware.getTags, middleware.search, routes.views.search);
 
     app.get('/api/fileupload/list', keystone.middleware.api, routes.api.fileupload.list);
     app.get('/api/fileupload/:id', keystone.middleware.api, routes.api.fileupload.get);

@@ -1,11 +1,34 @@
 extends ../layouts/default
 
+mixin options(list)
+    each e in list
+        option(value=e.id) #{e.name}
+
 block content
     div.container
         form(action="/search" method="GET")
             div.form-group
                 input.form-control(type="text" name="search" placeholder="Search...")
+            div.form-group
+                div.row
+                    div.col-xs-3
+                        label(for='audience') Audience
+                        select.form-control#audience(multiple name="audience")
+                            +options(tags.audiences)
+                    div.col-xs-3
+                        label(for='age') Age
+                        select.form-control#age(multiple name="age")
+                            +options(tags.ages)
+                    div.col-xs-3
+                        label(for='topic') Topic
+                        select.form-control#topic(multiple name="topic")
+                            +options(tags.topics)
+                    div.col-xs-3
+                        label(for='skill') Skill
+                        select.form-control#skill(multiple name="skill")
+                            +options(tags.skills)
             input(type="submit" value="Search")
+
         if(data.searchResults)
             div.container
                 h1=Results
@@ -15,6 +38,6 @@ block content
                     each result in data.searchResults[key]
                         ul
                             li 
-                                a(href=data.paths[key]+"/"+result.slug) #{result.title}
+                                a(href=data.paths[key].many+"/"+result.slug) #{result.title}
         else
             h2 No results. Try another search...

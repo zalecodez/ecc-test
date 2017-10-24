@@ -41,9 +41,7 @@ block content
                     |&nbsp;&nbsp;&nbsp;&nbsp;
 
                 if(printable.age.length > 0)
-                    |Age:
-                    each age in printable.age
-                        |#{" "+age.name}
+                    |Age: #{printable.ageGroup}
                     |&nbsp;&nbsp;&nbsp;&nbsp;
  
             +comment-block(data.comments)
