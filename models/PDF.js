@@ -1,6 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
-var pdfjs = require('pdfjs-dist');
+var pdf2png = require('./pdf2png');
 
 var pdfstorage = new keystone.Storage({
     adapter: keystone.Storage.Adapters.FS,
@@ -24,23 +24,16 @@ PDF.add({
             return '/uploads/pdf/'+this.PDF.filename;
         },
     },
-    thumbnail: {type: String, watch: true, value: function(callback){
-        function makeThumb(page) {
-            // draw page to fit into 96x96 canvas
-            var vp = page.getViewport(1);
-            var canvas = document.createElement("canvas");
-            canvas.width = canvas.height = 500;
-            var scale = Math.min(canvas.width / vp.width, canvas.height / vp.height);
-            return page.render({canvasContext: canvas.getContext("2d"), viewport: page.getViewport(scale)}).promise.then(function () {
-                return canvas;
-            });
+    thumbnail: {type: String, hidden: true, 
+        watch: 'PDF', value: function(callback){
+            pdf2png(__dirname+"/../public/uploads/pdf/"+this.PDF.filename, callback);
         }
-
-        pdfjs.PDFJS.getDocument("localhost:300/uploads/pdf/GMgLfcV7yk2Xu9oF.pdf").promise.then(function (doc) {
-            console.log(doc);
-        }).catch(console.error);
-    }},
-
+    },
+    preview: {type: Types.Html, wysiwyg: true, watch: true, height: '500',
+        value: function(){
+            return "<img  height='500' src='"+this.thumbnail+"'/>";
+        },
+    },
 });
 
 PDF.register();

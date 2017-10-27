@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var MediaUpload = require('./MediaUpload');
+var video2img = require('./video2img');
 
 var vidStorage = new keystone.Storage({
     adapter: keystone.Storage.Adapters.FS,
@@ -23,16 +24,16 @@ Video.add({
             return '/uploads/videos/'+this.video.filename;
         },
     },
-    //preview: {type: Types.Html, wysiwyg: true, watch: 'video', 
-    //    value: function(){
-    //        return "<video width='150' height='150' controls>\
-    //                <source \
-    //                    src='/uploads/videos/"+this.video.filename+"'\
-    //                    type= '"+this.video.mimetype+"'\
-    //                />\
-    //            </video>";
-    //    },
-    //},
+    thumbnail: {type: String, hidden: true, 
+        watch: 'video', value: function(callback){
+            video2img(__dirname+"/../public/uploads/videos/"+this.video.filename, callback);
+        }
+    },
+    preview: {type: Types.Html, wysiwyg: true, watch: true, 
+        value: function(){
+            return "<img width='150' height='150' src='"+this.thumbnail+"'/>";
+        },
+    },
 
 });
 
